@@ -501,10 +501,11 @@ int TString::Insert(int position, const TString& elem)
 
 void TString::IntToString(int num)
 {
-    this->SetLen(0);
+    TString str;
     while (num>0)
     {
         int digit = num % 10;
+        num /= 10; 
         char* d;
         switch (digit)
         {
@@ -539,15 +540,55 @@ void TString::IntToString(int num)
             d = "9";
             break;
         }
-
+        TString s(d);
+        str = s + str;
     }
-
-
+    *this = str;
 }
 
 int TString::StringToInt()
 {
-    return 0;
+    int num{};
+    for (int i = 0; i < len; ++i)
+    {
+        char s = str[i];
+        int d{};
+        switch (s)
+        {
+        case '0':
+            d = 0;
+            break;
+        case '1':
+            d = 1;
+            break;
+        case '2':
+            d = 2;
+            break;
+        case '3':
+            d = 3;
+            break;
+        case '4':
+            d = 4;
+            break;
+        case '5':
+            d = 5;
+            break;
+        case '6':
+            d = 6;
+            break;
+        case '7':
+            d = 7;
+            break;
+        case '8':
+            d = 8;
+            break;
+        case '9':
+            d = 9;
+            break;
+        }
+        num += (d * pow(10, len - 1 - i));
+    }
+    return num;
 }
 
 
